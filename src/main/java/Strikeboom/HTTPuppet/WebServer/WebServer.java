@@ -34,6 +34,19 @@ public class WebServer {
         });
     }
     public void hostHomepage() {
+        //create favicon directory
+        server.createContext("/favicon.ico",exchange -> {
+            exchange.getResponseHeaders().add("Content-Type","image/x-icon");
+
+            byte[] file = Files.readAllBytes(Paths.get("src/main/resources/image/icon/icon.ico"));
+
+            exchange.sendResponseHeaders(200,file.length);
+
+            OutputStream outputStream = exchange.getResponseBody();
+            outputStream.write(file);
+            outputStream.close();
+        });
+
         //create homepage at / first
         server.createContext("/",exchange -> {
             exchange.getResponseHeaders().add("Content-Type","text/html");
