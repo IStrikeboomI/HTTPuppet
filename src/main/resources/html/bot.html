@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+    <head></head>
+    <body>
+    <div id="guilds">
+    <span>Choose Server:</span>
+        <select name="guilds" id="guildList">
+
+        </select>
+    </div>
+    <script>
+       //Where the guild data for the json files are held
+       var jsonGuildData;
+       fetch('/guilds.json')
+       .then(response => {
+           if (!response.ok) {
+               throw new Error("HTTP error " + response.status);
+           }
+        return response.json();
+       })
+       .then(json => {
+           jsonGuildData = json;
+       })
+       .catch(function() {
+           console.log("ERROR!");
+       })
+
+        const select = document.getElementById('selectElementId');
+
+        for (let i = 0; i<=1; i++){
+            var opt = document.createElement('option');
+            opt.value = i;
+            opt.innerHTML = i;
+            //select.appendChild(opt);
+        }
+    </script>
+    </body>
+</html>

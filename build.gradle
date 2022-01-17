@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id'application'
+    id'com.github.johnrengelman.shadow' version '5.2.0'
+}
+mainClassName = 'Strikeboom.HTTPuppet'
+version '1.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
+}
+def jdaVersion = '4.4.0_352'
+
+dependencies {
+    implementation("net.dv8tion:JDA:$jdaVersion")
+    implementation 'org.json:json:20211205'
+}
+
+compileJava.options.encoding = 'UTF-8'
