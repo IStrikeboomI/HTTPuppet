@@ -34,8 +34,8 @@ public class WebServer {
         });
     }
     public void hostHomepage() {
-        //create homepage at /bot first
-        server.createContext("/bot.html",exchange -> {
+        //create homepage at / first
+        server.createContext("/",exchange -> {
             exchange.getResponseHeaders().add("Content-Type","text/html");
 
             byte[] file = Files.readAllBytes(Paths.get("src/main/resources/html/bot.html"));

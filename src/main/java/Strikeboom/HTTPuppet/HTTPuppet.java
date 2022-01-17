@@ -4,6 +4,9 @@ import Strikeboom.HTTPuppet.WebServer.WebServer;
 import Strikeboom.HTTPuppet.WebServer.json.GuildJson;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.ChunkingFilter;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
 import javax.security.auth.login.LoginException;
 import java.io.File;
@@ -32,7 +35,11 @@ public class HTTPuppet {
         } catch (FileNotFoundException ignored) {}
         try {
             //build jda
-            JDA jda = JDABuilder.createDefault(token).build();
+            JDA jda = JDABuilder.createDefault(token)
+                    .setChunkingFilter(ChunkingFilter.ALL) // enable member chunking for all guilds
+                    .setMemberCachePolicy(MemberCachePolicy.ALL) // ignored if chunking enabled
+                    .enableIntents(GatewayIntent.GUILD_MEMBERS) // use this to get all the members
+                    .build();
             jda.awaitReady();
 
             guildJson = new GuildJson();

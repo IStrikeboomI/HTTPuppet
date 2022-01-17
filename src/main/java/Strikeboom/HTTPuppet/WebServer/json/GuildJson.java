@@ -1,13 +1,11 @@
 package Strikeboom.HTTPuppet.WebServer.json;
 
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.nio.channels.Channel;
 import java.util.List;
 
 public class GuildJson {
@@ -22,12 +20,13 @@ public class GuildJson {
             object.put("id",guild.getId());
             object.put("name",guild.getName());
 
-            //iterate over all memebrs and add to separate member array
+            //iterate over all members and add to separate member array
             JSONArray membersArray = new JSONArray();
-            for (Member member : guild.getMembers()) {
+            //use load members because get members only gets cached members
+            for (Member member : guild.loadMembers().get()) {
                 JSONObject memberObject = new JSONObject();
                 memberObject.put("id",member.getId());
-                memberObject.put("name",member.getNickname());
+                memberObject.put("name",member.getEffectiveName());
                 membersArray.put(memberObject);
             }
 
