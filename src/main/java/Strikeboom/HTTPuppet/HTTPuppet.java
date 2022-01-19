@@ -2,6 +2,7 @@ package Strikeboom.HTTPuppet;
 
 import Strikeboom.HTTPuppet.WebServer.WebServer;
 import Strikeboom.HTTPuppet.WebServer.json.GuildJson;
+import Strikeboom.HTTPuppet.operations.Operations;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -44,6 +45,8 @@ public class HTTPuppet {
 
             guildJson = new GuildJson();
             guildJson.addGuilds(jda.getGuilds());
+
+            Operations.init();
 
             WebServer server = new WebServer(55566);
             server.hostGuilds();
