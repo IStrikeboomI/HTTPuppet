@@ -29,7 +29,6 @@
         function addJsonToSelect(JSONdata) {
             const select = document.getElementById('guildList');
             for (let i = 0; i < JSONdata.length; i++){
-                console.log(JSONdata[i].name);
                 var opt = document.createElement('option');
                 opt.value = JSONdata[i].name;
                 opt.innerHTML = JSONdata[i].name;

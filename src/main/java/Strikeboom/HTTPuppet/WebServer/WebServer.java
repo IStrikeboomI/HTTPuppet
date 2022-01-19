@@ -1,6 +1,8 @@
 package Strikeboom.HTTPuppet.WebServer;
 
 import Strikeboom.HTTPuppet.HTTPuppet;
+import Strikeboom.HTTPuppet.WebServer.json.IJSON;
+import Strikeboom.HTTPuppet.WebServer.json.JSONFiles;
 import com.sun.net.httpserver.HttpServer;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -23,15 +25,17 @@ public class WebServer {
         server.setExecutor(null);
     }
     //host the guilds in a json file that contains the ids and names and lets jda do the rest of the work
-    public void hostGuilds() {
-        server.createContext("/guilds.json",exchange -> {
-            exchange.getResponseHeaders().add("Content-Type","application/json");
+    public void hostJSONS() {
+        for (IJSON ijson : JSONFiles.JSON_FILES) {
+            server.createContext(ijson.getHostedUrl(), exchange -> {
+                exchange.getResponseHeaders().add("Content-Type","application/json");
 
-            exchange.sendResponseHeaders(200, HTTPuppet.guildJson.getArrayString().length());
-            OutputStream outputStream = exchange.getResponseBody();
-            outputStream.write(HTTPuppet.guildJson.getArrayString().getBytes());
-            outputStream.close();
-        });
+                exchange.sendResponseHeaders(200, ijson.getArrayString().length());
+                OutputStream outputStream = exchange.getResponseBody();
+                outputStream.write(ijson.getArrayString().getBytes());
+                outputStream.close();
+            });
+        }
     }
     public void hostHomepage() {
         //create favicon directory
