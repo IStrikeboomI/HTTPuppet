@@ -37,6 +37,18 @@ public class WebServer {
             });
         }
     }
+    public void hostJS() {
+        server.createContext("/js/JSONFilesFetching.js",exchange -> {
+            exchange.getResponseHeaders().add("Content-Type","text/javascript");
+            byte[] file = Files.readAllBytes(Paths.get("src/main/resources/html/js/JSONFilesFetching.js"));
+
+            exchange.sendResponseHeaders(200,file.length);
+
+            OutputStream outputStream = exchange.getResponseBody();
+            outputStream.write(file);
+            outputStream.close();
+        });
+    }
     public void hostHomepage() {
         //create favicon directory
         server.createContext("/favicon.ico",exchange -> {

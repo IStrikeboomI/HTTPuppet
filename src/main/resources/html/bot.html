@@ -11,23 +11,26 @@
 
         </select>
     </div>
-    <script>
-       fetch('/guilds.json')
-       .then(response => {
-           if (!response.ok) {
-               throw new Error("HTTP error " + response.status);
-           }
-        return response.json();
-       })
-       .then(json => {
-           addJsonToSelect(json);
-       })
-       .catch(function() {
-           console.log("ERROR!");
-       })
+    <div id="operations">
+        <span>Choose Operation:</span>
+        <select name="operations" id="operationList">
 
-        function addJsonToSelect(JSONdata) {
+        </select>
+    </div>
+    <script src="/js/JSONFilesFetching.js"></script>
+    <script>
+
+        function addJsonToGuildSelect(JSONdata) {
             const select = document.getElementById('guildList');
+            for (let i = 0; i < JSONdata.length; i++){
+                var opt = document.createElement('option');
+                opt.value = JSONdata[i].name;
+                opt.innerHTML = JSONdata[i].name;
+                select.appendChild(opt);
+            }
+        }
+        function addJsonToOperationSelect(JSONdata) {
+            const select = document.getElementById('operationList');
             for (let i = 0; i < JSONdata.length; i++){
                 var opt = document.createElement('option');
                 opt.value = JSONdata[i].name;

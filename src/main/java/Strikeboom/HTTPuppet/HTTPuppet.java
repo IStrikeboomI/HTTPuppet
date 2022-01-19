@@ -50,6 +50,7 @@ public class HTTPuppet {
 
             WebServer server = new WebServer(55566);
             server.hostJSONS();
+            server.hostJS();
             server.hostHomepage();
             server.start();
         } catch (LoginException | IOException | InterruptedException e) {
