@@ -12,8 +12,6 @@
         </select>
     </div>
     <script>
-       //Where the guild data for the json files are held
-       var jsonGuildData;
        fetch('/guilds.json')
        .then(response => {
            if (!response.ok) {
@@ -22,19 +20,21 @@
         return response.json();
        })
        .then(json => {
-           jsonGuildData = json;
+           addJsonToSelect(json);
        })
        .catch(function() {
            console.log("ERROR!");
        })
 
-        const select = document.getElementById('selectElementId');
-
-        for (let i = 0; i<=1; i++){
-            var opt = document.createElement('option');
-            opt.value = i;
-            opt.innerHTML = i;
-            //select.appendChild(opt);
+        function addJsonToSelect(JSONdata) {
+            const select = document.getElementById('guildList');
+            for (let i = 0; i < JSONdata.length; i++){
+                console.log(JSONdata[i].name);
+                var opt = document.createElement('option');
+                opt.value = JSONdata[i].name;
+                opt.innerHTML = JSONdata[i].name;
+                select.appendChild(opt);
+            }
         }
     </script>
     </body>
