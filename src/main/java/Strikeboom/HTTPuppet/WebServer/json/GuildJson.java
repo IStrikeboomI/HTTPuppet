@@ -7,8 +7,6 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.List;
-
 public class GuildJson implements IJSON {
     final private JSONArray array;
     public GuildJson() {

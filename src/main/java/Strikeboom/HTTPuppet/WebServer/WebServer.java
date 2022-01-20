@@ -1,21 +1,14 @@
 package Strikeboom.HTTPuppet.WebServer;
 
-import Strikeboom.HTTPuppet.HTTPuppet;
 import Strikeboom.HTTPuppet.WebServer.json.IJSON;
 import Strikeboom.HTTPuppet.WebServer.json.JSONFiles;
 import com.sun.net.httpserver.HttpServer;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.User;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
 
 public class WebServer {
     private final HttpServer server;
