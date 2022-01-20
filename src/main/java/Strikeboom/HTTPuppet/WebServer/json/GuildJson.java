@@ -13,6 +13,7 @@ public class GuildJson implements IJSON {
     final private JSONArray array;
     public GuildJson() {
         array = new JSONArray();
+        add();
     }
     public void add() {
         //iterate over all the guilds

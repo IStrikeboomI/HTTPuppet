@@ -9,6 +9,7 @@ public class OperationJson implements IJSON {
     final private JSONArray array;
     public OperationJson() {
         array = new JSONArray();
+        add();
     }
 
     @Override

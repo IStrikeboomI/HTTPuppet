@@ -8,9 +8,5 @@ public class JSONFiles {
     public static void init() {
         JSON_FILES.add(new GuildJson());
         JSON_FILES.add(new OperationJson());
-
-        for (IJSON ijson : JSON_FILES) {
-            ijson.add();
-        }
     }
 }
