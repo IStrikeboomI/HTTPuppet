@@ -13,6 +13,7 @@ public class GuildJson implements IJSON {
         array = new JSONArray();
         add();
     }
+    @Override
     public void add() {
         //iterate over all the guilds
         for (Guild guild : HTTPuppet.jda.getGuilds()) {
@@ -23,7 +24,7 @@ public class GuildJson implements IJSON {
             //iterate over all members and add to separate member array
             JSONArray membersArray = new JSONArray();
             //use load members because get members only gets cached members
-            for (Member member : ((Guild)guild).loadMembers().get()) {
+            for (Member member : guild.loadMembers().get()) {
                 JSONObject memberObject = new JSONObject();
                 memberObject.put("id",member.getId());
                 memberObject.put("name",member.getEffectiveName());
@@ -32,7 +33,7 @@ public class GuildJson implements IJSON {
 
             //iterate over all channels and add to separate channel array
             JSONArray channelArray = new JSONArray();
-            for (TextChannel channel : ((Guild)guild).getTextChannels()) {
+            for (TextChannel channel : guild.getTextChannels()) {
                 JSONObject channelObject = new JSONObject();
                 channelObject.put("id", channel.getId());
                 channelObject.put("name", channel.getName());
@@ -45,6 +46,7 @@ public class GuildJson implements IJSON {
         }
     }
 
+    @Override
     public String getArrayString() {
         return array.toString();
     }

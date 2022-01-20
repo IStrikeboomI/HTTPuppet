@@ -2,11 +2,14 @@ package Strikeboom.HTTPuppet.WebServer;
 
 import Strikeboom.HTTPuppet.WebServer.json.IJSON;
 import Strikeboom.HTTPuppet.WebServer.json.JSONFiles;
+import Strikeboom.HTTPuppet.operations.IOperation;
+import Strikeboom.HTTPuppet.operations.Operations;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -23,9 +26,23 @@ public class WebServer {
             server.createContext(ijson.getHostedUrl(), exchange -> {
                 exchange.getResponseHeaders().add("Content-Type","application/json");
 
-                exchange.sendResponseHeaders(200, ijson.getArrayString().length());
+                exchange.sendResponseHeaders(200, ijson.getArrayString().getBytes(StandardCharsets.UTF_8).length);
                 OutputStream outputStream = exchange.getResponseBody();
                 outputStream.write(ijson.getArrayString().getBytes());
+                outputStream.close();
+            });
+        }
+    }
+    public void hostOperations() {
+        for (IOperation operation : Operations.OPERATIONS) {
+            server.createContext(operation.getUrl(), exchange -> {
+                exchange.getResponseHeaders().add("Content-Type","text/html");
+
+                byte[] file = Files.readAllBytes(Paths.get(operation.getFileLocation()));
+
+                exchange.sendResponseHeaders(200, file.length);
+                OutputStream outputStream = exchange.getResponseBody();
+                outputStream.write(file);
                 outputStream.close();
             });
         }

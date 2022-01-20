@@ -23,6 +23,7 @@ public class OperationJson implements IJSON {
         }
     }
 
+    @Override
     public String getArrayString() {
         return array.toString();
     }

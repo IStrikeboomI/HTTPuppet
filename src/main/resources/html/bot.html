@@ -1,6 +1,9 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>HTTPuppet</title>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
     </head>
@@ -13,13 +16,15 @@
     </div>
     <div id="operations">
         <span>Choose Operation:</span>
-        <select name="operations" id="operationList">
+        <select name="operations" id="operationList" onchange="displayOperation()">
 
         </select>
     </div>
+    <iframe id="frame" src="/sendmessage.html"></iframe>
     <script src="/js/JSONFilesFetching.js"></script>
     <script>
-
+        var guildJSONData;
+        var operationJSONData;
         function addJsonToGuildSelect(JSONdata) {
             const select = document.getElementById('guildList');
             for (let i = 0; i < JSONdata.length; i++){
@@ -37,6 +42,16 @@
                 opt.innerHTML = JSONdata[i].name;
                 select.appendChild(opt);
             }
+        }
+        function displayOperation() {
+            const value = document.getElementById("operationList").value;
+            let url;
+            for (let i of operationJSONData) {
+                if (i.name == value) {
+                    url = i.url;
+                }
+            }
+            document.getElementById("frame").src = url;
         }
     </script>
     </body>

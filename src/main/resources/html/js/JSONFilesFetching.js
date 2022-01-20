@@ -7,6 +7,7 @@ fetch('/guilds.json')
        })
        .then(json => {
            addJsonToGuildSelect(json);
+           guildJSONData = json;
        })
        .catch(function() {
            console.log("ERROR!");
@@ -21,6 +22,7 @@ fetch('/operations.json')
        })
        .then(json => {
            addJsonToOperationSelect(json);
+           operationJSONData = json;
        })
        .catch(function() {
            console.log("ERROR!");

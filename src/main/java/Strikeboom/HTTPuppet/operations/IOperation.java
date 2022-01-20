@@ -17,4 +17,9 @@ public interface IOperation {
      * @throws InvalidOperationException when parameters are wrong
      */
     void handleOperation(Object[] objects) throws InvalidOperationException;
+
+    /**
+     * @return File location of operation iframe website
+     */
+    String getFileLocation();
 }

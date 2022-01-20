@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 public class OperationSendMessage implements IOperation{
     @Override
     public String getUrl() {
-        return "/sendmessage";
+        return "/sendmessage.html";
     }
 
     @Override
@@ -42,5 +42,10 @@ public class OperationSendMessage implements IOperation{
         } else {
             throw new InvalidOperationException("Guild ID is not valid!");
         }
+    }
+
+    @Override
+    public String getFileLocation() {
+        return "src/main/resources/html/operations/sendmessage.html";
     }
 }
