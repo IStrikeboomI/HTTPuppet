@@ -6,6 +6,8 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>HTTPuppet</title>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+        <style>
+        </style>
     </head>
     <body>
     <div id="guilds">
@@ -17,34 +19,47 @@
     <div id="operations">
         <span>Choose Operation:</span>
         <select name="operations" id="operationList" onchange="displayOperation()">
-
+            <option id="blank"></option>
         </select>
     </div>
-    <iframe id="frame" src="/sendmessage.html" frameBorder="0"></iframe>
+    <!-- Default is Send message -->
+    <iframe id="frame" src="about:blank" frameBorder="0"></iframe>
     <script src="/js/JSONFilesFetching.js"></script>
     <script>
-        var guildJSONData;
         var operationJSONData;
+        var guildJSONData;
+        getGuilds(addJsonToGuildSelect);
+        getOperations(addJsonToOperationSelect);
         function addJsonToGuildSelect(JSONdata) {
+            guildJSONData = JSONdata;
             const select = document.getElementById('guildList');
-            for (let i = 0; i < JSONdata.length; i++){
+            for (let i of JSONdata){
                 var opt = document.createElement('option');
-                opt.value = JSONdata[i].name;
-                opt.innerHTML = JSONdata[i].name;
+                opt.value = i.name;
+                opt.innerHTML = i.name;
                 select.appendChild(opt);
             }
         }
         function addJsonToOperationSelect(JSONdata) {
+            operationJSONData = JSONdata
             const select = document.getElementById('operationList');
-            for (let i = 0; i < JSONdata.length; i++){
+            for (let i of JSONdata){
                 var opt = document.createElement('option');
-                opt.value = JSONdata[i].name;
-                opt.innerHTML = JSONdata[i].name;
+                opt.value = i.name;
+                opt.innerHTML = i.name;
                 select.appendChild(opt);
             }
         }
         function displayOperation() {
+            //show operation to iframe
             const value = document.getElementById("operationList").value;
+
+            //if option was blank
+            if (value == "") {
+                document.getElementById("frame").src = "about:blank";
+                document.getElementById("frame").onload = null;
+                return;
+            }
             let url;
             for (let i of operationJSONData) {
                 if (i.name == value) {
@@ -52,6 +67,27 @@
                 }
             }
             document.getElementById("frame").src = url;
+
+            document.getElementById("frame").onload = function() {
+                const frame = document.getElementById("frame");
+                const objects = frame.contentWindow.desiredObjects;
+                for (let i of objects) {
+                    const select = frame.contentDocument.getElementById(i.id);
+                    switch (i.type) {
+                        case "channel":
+                            let guildChosen = guildJSONData.findIndex(x => x.name==document.getElementById("guildList").value);
+                            for (let j of guildJSONData[guildChosen].channels) {
+                                var opt = document.createElement('option');
+                                opt.value = j.name;
+                                opt.innerHTML = j.name;
+                                select.appendChild(opt);
+                            }
+                            break;
+                        default:
+                            console.log("ERORR NO TYPE IN FRAME OBJECTS");
+                    }
+                }
+            }
         }
     </script>
     </body>
