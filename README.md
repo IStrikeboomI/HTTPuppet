@@ -1,6 +1,6 @@
-#HTTP Puppet
-Control a bot over a website!
+# HTTP Puppet
 
+Control a bot over a website!
 <hr>
 
 Go to the website and choose the server and operation and mess with your friends!
