@@ -6,14 +6,28 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Send Message</title>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+        <style>
+            div {
+                margin-bottom: 10px;
+            }
+            textarea {
+               vertical-align: top;
+               width: 200px;
+               resize:none;
+               display: inline-block;
+            }
+        </style>
     </head>
     <body>
         <div id="channel">
             <span>Choose Channel:</span>
-            <select id="channelList">
-
-            </select>
+            <select id="channelList"></select>
         </div>
+        <div id="textbox">
+            <span id="messageContent">Message Content:</span>
+            <textarea id="userText" name="user text" rows="4" cols="50"></textarea>
+        </div>
+        <button type="button" id="send">Send Message</button>
         <script>
             var desiredObjects = [{"id":"channelList","type":"channel"}];
         </script>

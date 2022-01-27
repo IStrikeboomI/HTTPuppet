@@ -7,6 +7,9 @@
         <title>HTTPuppet</title>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
         <style>
+            div {
+                margin-bottom: 1px;
+            }
         </style>
     </head>
     <body>
@@ -22,14 +25,18 @@
             <option id="blank"></option>
         </select>
     </div>
-    <!-- Default is Send message -->
-    <iframe id="frame" src="about:blank" frameBorder="0"></iframe>
+    <!-- Default is Blank -->
+    <!-- No border and put on the left of the screen by having no margin-->
+    <iframe id="frame" src="about:blank" frameBorder="0" scrolling="no" height="300"
+            marginwidth="0" marginheight="0"></iframe>
     <script src="/js/JSONFilesFetching.js"></script>
     <script>
         var operationJSONData;
         var guildJSONData;
+
         getGuilds(addJsonToGuildSelect);
         getOperations(addJsonToOperationSelect);
+
         function addJsonToGuildSelect(JSONdata) {
             guildJSONData = JSONdata;
             const select = document.getElementById('guildList');
@@ -70,6 +77,9 @@
 
             document.getElementById("frame").onload = function() {
                 const frame = document.getElementById("frame");
+
+
+
                 const objects = frame.contentWindow.desiredObjects;
                 for (let i of objects) {
                     const select = frame.contentDocument.getElementById(i.id);
@@ -84,7 +94,7 @@
                             }
                             break;
                         default:
-                            console.log("ERORR NO TYPE IN FRAME OBJECTS");
+                            console.log("ERROR NO TYPE IN FRAME OBJECTS");
                     }
                 }
             }
