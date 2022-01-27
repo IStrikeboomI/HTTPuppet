@@ -1,6 +1,7 @@
 package Strikeboom.HTTPuppet.WebServer.json;
 
 import Strikeboom.HTTPuppet.HTTPuppet;
+import net.dv8tion.jda.api.entities.Category;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -31,6 +32,15 @@ public class GuildJson implements IJSON {
                 membersArray.put(memberObject);
             }
 
+            //iterate over all categories and add to separate category array
+            JSONArray categoryArray = new JSONArray();
+            for (Category category : guild.getCategories()) {
+                JSONObject channelObject = new JSONObject();
+                channelObject.put("id", category.getId());
+                channelObject.put("name", category.getName());
+                categoryArray.put(channelObject);
+            }
+
             //iterate over all channels and add to separate channel array
             JSONArray channelArray = new JSONArray();
             for (TextChannel channel : guild.getTextChannels()) {
@@ -42,6 +52,7 @@ public class GuildJson implements IJSON {
             //put the separate arrays in the main array
             object.put("channels",channelArray);
             object.put("members",membersArray);
+            object.put("categories",categoryArray);
             array.put(object);
         }
     }
