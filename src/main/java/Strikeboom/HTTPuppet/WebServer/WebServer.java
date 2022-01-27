@@ -13,6 +13,8 @@ import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class WebServer {
     private final HttpServer server;
@@ -97,19 +99,41 @@ public class WebServer {
             outputStream.close();
         });
     }
+    //canSend for rate limiting every second, only 1 operation per second
+    boolean canSend = true;
     public void hostOperationHandler() {
         server.createContext("/handleoperation", exchange -> {
+            if (!canSend) {
+                exchange.getResponseHeaders().add("Retry-After","1000");
+                exchange.sendResponseHeaders(429,0);
+                exchange.close();
+            } else {
+                canSend = false;
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        canSend = true;
+                    }
+                    //set rate limit to 1 second
+                }, 1000);
+            }
+
             InputStream inputStream = exchange.getRequestBody();
             BufferedInputStream bis = new BufferedInputStream(inputStream);
             ByteArrayOutputStream buf = new ByteArrayOutputStream();
             for (int result = bis.read(); result != -1; result = bis.read()) {
                 buf.write((byte) result);
             }
+            inputStream.close();
+            bis.close();
             String data = buf.toString("UTF-8");
+            buf.close();
 
             JSONObject object = new JSONObject(data);
             if (!object.has("operation") || !object.has("parameters")) {
                 try {
+                    exchange.sendResponseHeaders(404,0);
+                    exchange.close();
                     throw new InvalidOperationException("Operation has no operation or parameters");
                 } catch (InvalidOperationException e) {
                     e.printStackTrace();
@@ -121,10 +145,14 @@ public class WebServer {
                     try {
                         iOperation.handleOperation(object.getJSONArray("parameters").toList().toArray());
                     } catch (InvalidOperationException e) {
+                        exchange.sendResponseHeaders(404,0);
+                        exchange.close();
                         e.printStackTrace();
                     }
                 }
             }
+            exchange.sendResponseHeaders(200,0);
+            exchange.close();
         });
     }
     public void start() {
