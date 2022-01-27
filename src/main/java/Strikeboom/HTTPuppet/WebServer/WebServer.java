@@ -3,11 +3,12 @@ package Strikeboom.HTTPuppet.WebServer;
 import Strikeboom.HTTPuppet.WebServer.json.IJSON;
 import Strikeboom.HTTPuppet.WebServer.json.JSONFiles;
 import Strikeboom.HTTPuppet.operations.IOperation;
+import Strikeboom.HTTPuppet.operations.InvalidOperationException;
 import Strikeboom.HTTPuppet.operations.Operations;
 import com.sun.net.httpserver.HttpServer;
+import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -58,6 +59,16 @@ public class WebServer {
             outputStream.write(file);
             outputStream.close();
         });
+        server.createContext("/js/SendOperationRequest.js",exchange -> {
+            exchange.getResponseHeaders().add("Content-Type","text/javascript");
+            byte[] file = Files.readAllBytes(Paths.get("src/main/resources/html/js/SendOperationRequest.js"));
+
+            exchange.sendResponseHeaders(200,file.length);
+
+            OutputStream outputStream = exchange.getResponseBody();
+            outputStream.write(file);
+            outputStream.close();
+        });
     }
     public void hostHomepage() {
         //create favicon directory
@@ -84,6 +95,36 @@ public class WebServer {
             OutputStream outputStream = exchange.getResponseBody();
             outputStream.write(file);
             outputStream.close();
+        });
+    }
+    public void hostOperationHandler() {
+        server.createContext("/handleoperation", exchange -> {
+            InputStream inputStream = exchange.getRequestBody();
+            BufferedInputStream bis = new BufferedInputStream(inputStream);
+            ByteArrayOutputStream buf = new ByteArrayOutputStream();
+            for (int result = bis.read(); result != -1; result = bis.read()) {
+                buf.write((byte) result);
+            }
+            String data = buf.toString("UTF-8");
+
+            JSONObject object = new JSONObject(data);
+            if (!object.has("operation") || !object.has("parameters")) {
+                try {
+                    throw new InvalidOperationException("Operation has no operation or parameters");
+                } catch (InvalidOperationException e) {
+                    e.printStackTrace();
+                }
+            }
+            String operation = object.getString("operation");
+            for (IOperation iOperation : Operations.OPERATIONS) {
+                if (iOperation.getUrl().equals(operation)) {
+                    try {
+                        iOperation.handleOperation(object.getJSONArray("parameters").toList().toArray());
+                    } catch (InvalidOperationException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         });
     }
     public void start() {

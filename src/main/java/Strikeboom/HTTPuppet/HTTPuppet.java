@@ -52,6 +52,7 @@ public class HTTPuppet {
             server.hostJS();
             server.hostOperations();
             server.hostHomepage();
+            server.hostOperationHandler();
             server.start();
         } catch (LoginException | IOException | InterruptedException e) {
             e.printStackTrace();

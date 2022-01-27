@@ -44,6 +44,7 @@
                 var opt = document.createElement('option');
                 opt.value = i.name;
                 opt.innerHTML = i.name;
+                opt.dataset.id = i.id;
                 select.appendChild(opt);
             }
         }
@@ -78,7 +79,8 @@
             document.getElementById("frame").onload = function() {
                 const frame = document.getElementById("frame");
 
-
+                let guilds = document.getElementById("guildList");
+                frame.contentWindow.guildId = guilds.options[guilds.selectedIndex].dataset.id;
 
                 const objects = frame.contentWindow.desiredObjects;
                 for (let i of objects) {
@@ -90,6 +92,7 @@
                                 var opt = document.createElement('option');
                                 opt.value = j.name;
                                 opt.innerHTML = j.name;
+                                opt.dataset.id = j.id;
                                 select.appendChild(opt);
                             }
                             break;
