@@ -1,0 +1,10 @@
+div {
+    margin-bottom: 10px;
+}
+textarea {
+   vertical-align: top;
+   width: 200px;
+   resize:none;
+   display: inline-block;
+   font-family:"Comfortaa",sans-serif;
+}

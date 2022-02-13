@@ -86,6 +86,19 @@ public class WebServer {
             outputStream.close();
         });
 
+        //create CSS directory
+        server.createContext("/template.css",exchange -> {
+            exchange.getResponseHeaders().add("Content-Type","text/css");
+
+            byte[] file = Files.readAllBytes(Paths.get("src/main/resources/html/css/template.css"));
+
+            exchange.sendResponseHeaders(200,file.length);
+
+            OutputStream outputStream = exchange.getResponseBody();
+            outputStream.write(file);
+            outputStream.close();
+        });
+
         //create homepage at / first
         server.createContext("/",exchange -> {
             exchange.getResponseHeaders().add("Content-Type","text/html");
