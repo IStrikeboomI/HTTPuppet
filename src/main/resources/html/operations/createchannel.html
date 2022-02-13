@@ -9,12 +9,35 @@
         <link rel="stylesheet" href="/template.css" type="text/css">
     </head>
     <body>
+    <div id="type">
+        <span>Channel Type:</span>
+        <input type="radio" id="text" name="channelType" value="text" checked>
+        <label for="text">Text Channel</label>
+        <input type="radio" id="voice" name="channelType" value="voice">
+        <label for="voice">Voice Channel</label>
+    </div>
+    <div id="category">
+        <span>Channel Category:</span>
+        <select id="channelCategory"></select>
+    </div>
     <div id="channel">
         <span>Channel Name:</span>
         <textarea id="userText" name="user text" rows="4" cols="50"></textarea>
     </div>
+    <button type="button" id="send" onclick="send()">Create Channel</button>
+    <script src="/js/SendOperationRequest.js"></script>
     <script>
-        var desiredObjects = [];
+        var desiredObjects = [{"id":"channelCategory","type":"category"}];
+        var guildId;
+        function send() {
+                let type = document.querySelector('input[name="channelType"]:checked').value;
+                let category = channelCategory.options[channelCategory.selectedIndex].dataset.id;
+                let channelName = document.getElementById("userText").value;
+                let obj = {"operation":"/createchannel.html",parameters:[guildId,type,category,channelName]}
+
+                let JSONText = JSON.stringify(obj);
+                sendOperation(JSONText);
+            }
     </script>
     </body>
 </html>

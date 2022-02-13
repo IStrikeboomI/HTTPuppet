@@ -28,7 +28,7 @@
     </div>
     <!-- Default is Blank -->
     <!-- No border and put on the left of the screen by having no margin-->
-    <iframe id="frame" src="about:blank" frameBorder="0" scrolling="no" height="300"
+    <iframe id="frame" src="about:blank" frameBorder="0" scrolling="no" height="300" width="500"
             marginwidth="0" marginheight="0"></iframe>
     <script src="/js/JSONFilesFetching.js"></script>
     <script>
@@ -82,13 +82,14 @@
 
                 let guilds = document.getElementById("guildList");
                 frame.contentWindow.guildId = guilds.options[guilds.selectedIndex].dataset.id;
+                let guildChosen = guildJSONData.findIndex(x => x.name==document.getElementById("guildList").value);
 
                 const objects = frame.contentWindow.desiredObjects;
+                //give the iframes the types they want for the select dropdowns
                 for (let i of objects) {
                     const select = frame.contentDocument.getElementById(i.id);
                     switch (i.type) {
                         case "channel":
-                            let guildChosen = guildJSONData.findIndex(x => x.name==document.getElementById("guildList").value);
                             for (let j of guildJSONData[guildChosen].channels) {
                                 var opt = document.createElement('option');
                                 opt.value = j.name;
@@ -97,6 +98,14 @@
                                 select.appendChild(opt);
                             }
                             break;
+                        case "category":
+                            for (let j of guildJSONData[guildChosen].categories) {
+                                var opt = document.createElement('option');
+                                opt.value = j.name;
+                                opt.innerHTML = j.name;
+                                opt.dataset.id = j.id;
+                                select.appendChild(opt);
+                            }
                         default:
                             console.log("ERROR NO TYPE IN FRAME OBJECTS");
                     }

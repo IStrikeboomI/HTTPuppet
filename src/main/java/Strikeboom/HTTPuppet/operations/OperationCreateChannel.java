@@ -1,6 +1,7 @@
 package Strikeboom.HTTPuppet.operations;
 
 import Strikeboom.HTTPuppet.HTTPuppet;
+import net.dv8tion.jda.api.entities.Category;
 import net.dv8tion.jda.api.entities.Guild;
 
 /**
@@ -17,8 +18,10 @@ public class OperationCreateChannel implements IOperation{
         return "Create Channel";
     }
     /**
-     * @param objects first object should be the guild id in a String
-     *                second object should be the channel name in a String
+     * @param objects first object should be the guild id,
+     *                second object should be the type of channel (text or voice chanel),
+     *                third object should be the channel category,
+     *                fourth object should be the channel name,
      * @throws InvalidOperationException when one of the parameters are not strings or valid
      */
     @Override
@@ -30,7 +33,19 @@ public class OperationCreateChannel implements IOperation{
         }
         Guild guild = HTTPuppet.jda.getGuildById((String) objects[0]);
         if (guild != null) {
-            guild.createTextChannel((String)objects[1]).queue();
+            String type = (String) objects[1];
+            Category category = guild.getCategoryById((String) objects[2]);
+            if (category != null) {
+                if (type.equals("text")) {
+                    guild.createTextChannel((String) objects[3],category).queue();
+                } else if (type.equals("voice")) {
+                    guild.createVoiceChannel((String) objects[3],category).queue();
+                } else {
+                    throw new InvalidOperationException("Channel type is not valid!");
+                }
+            } else {
+                throw new InvalidOperationException("Category ID is not valid!");
+            }
         } else {
             throw new InvalidOperationException("Guild ID is not valid!");
         }
