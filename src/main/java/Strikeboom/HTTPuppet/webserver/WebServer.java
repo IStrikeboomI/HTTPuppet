@@ -117,7 +117,7 @@ public class WebServer {
     public void hostOperationHandler() {
         server.createContext("/handleoperation", exchange -> {
             if (!canSend) {
-                exchange.getResponseHeaders().add("Retry-After","1000");
+                exchange.getResponseHeaders().add("Retry-After","1");
                 exchange.sendResponseHeaders(429,0);
                 exchange.close();
             } else {
