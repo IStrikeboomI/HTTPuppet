@@ -1,7 +1,7 @@
 package Strikeboom.HTTPuppet;
 
-import Strikeboom.HTTPuppet.WebServer.WebServer;
-import Strikeboom.HTTPuppet.WebServer.json.JSONFiles;
+import Strikeboom.HTTPuppet.webserver.WebServer;
+import Strikeboom.HTTPuppet.webserver.json.JSONFiles;
 import Strikeboom.HTTPuppet.operations.Operations;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;

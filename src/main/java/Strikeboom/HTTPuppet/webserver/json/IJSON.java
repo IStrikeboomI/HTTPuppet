@@ -1,4 +1,4 @@
-package Strikeboom.HTTPuppet.WebServer.json;
+package Strikeboom.HTTPuppet.webserver.json;
 
 public interface IJSON {
     /**

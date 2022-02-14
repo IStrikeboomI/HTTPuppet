@@ -1,7 +1,7 @@
-package Strikeboom.HTTPuppet.WebServer;
+package Strikeboom.HTTPuppet.webserver;
 
-import Strikeboom.HTTPuppet.WebServer.json.IJSON;
-import Strikeboom.HTTPuppet.WebServer.json.JSONFiles;
+import Strikeboom.HTTPuppet.webserver.json.IJSON;
+import Strikeboom.HTTPuppet.webserver.json.JSONFiles;
 import Strikeboom.HTTPuppet.operations.IOperation;
 import Strikeboom.HTTPuppet.operations.InvalidOperationException;
 import Strikeboom.HTTPuppet.operations.Operations;

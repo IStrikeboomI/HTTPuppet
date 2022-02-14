@@ -1,4 +1,4 @@
-package Strikeboom.HTTPuppet.WebServer.json;
+package Strikeboom.HTTPuppet.webserver.json;
 
 import Strikeboom.HTTPuppet.operations.IOperation;
 import Strikeboom.HTTPuppet.operations.Operations;

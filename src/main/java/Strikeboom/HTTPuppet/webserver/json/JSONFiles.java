@@ -1,4 +1,4 @@
-package Strikeboom.HTTPuppet.WebServer.json;
+package Strikeboom.HTTPuppet.webserver.json;
 
 import java.util.ArrayList;
 import java.util.List;

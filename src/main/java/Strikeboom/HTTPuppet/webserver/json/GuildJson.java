@@ -1,4 +1,4 @@
-package Strikeboom.HTTPuppet.WebServer.json;
+package Strikeboom.HTTPuppet.webserver.json;
 
 import Strikeboom.HTTPuppet.HTTPuppet;
 import net.dv8tion.jda.api.entities.Category;
