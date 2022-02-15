@@ -11,6 +11,7 @@ public class JSONFiles {
 
     public static void init() {
         guildJSON = new GuildJson();
+        operationJSON = new OperationJson();
 
         JSON_FILES.add(guildJSON);
         JSON_FILES.add(operationJSON);
