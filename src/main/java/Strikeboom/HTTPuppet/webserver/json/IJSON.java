@@ -7,6 +7,11 @@ public interface IJSON {
     void add();
 
     /**
+     * Used to refresh all data after client updates it
+     */
+    void refresh();
+
+    /**
      * @return JSON contents as a string
      */
     String getArrayString();

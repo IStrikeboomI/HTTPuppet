@@ -24,6 +24,11 @@ public class OperationJson implements IJSON {
     }
 
     @Override
+    public void refresh() {
+
+    }
+
+    @Override
     public String getArrayString() {
         return array.toString();
     }

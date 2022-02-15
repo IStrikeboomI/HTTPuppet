@@ -9,7 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class GuildJson implements IJSON {
-    final private JSONArray array;
+    private JSONArray array;
     public GuildJson() {
         array = new JSONArray();
         add();
@@ -55,6 +55,12 @@ public class GuildJson implements IJSON {
             object.put("categories",categoryArray);
             array.put(object);
         }
+    }
+
+    @Override
+    public void refresh() {
+        array = new JSONArray();
+        add();
     }
 
     @Override
