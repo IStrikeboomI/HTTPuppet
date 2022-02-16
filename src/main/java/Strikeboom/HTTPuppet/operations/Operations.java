@@ -5,8 +5,18 @@ import java.util.List;
 
 public class Operations {
     public static final List<IOperation> OPERATIONS = new ArrayList<>();
+
+    public static IOperation refresh;
+    public static IOperation sendMessage;
+    public static IOperation createChannel;
+
     public static void init() {
-        OPERATIONS.add(new OperationSendMessage());
-        OPERATIONS.add(new OperationCreateChannel());
+        refresh = new OperationRefresh();
+        sendMessage = new OperationSendMessage();
+        createChannel = new OperationCreateChannel();
+
+        OPERATIONS.add(refresh);
+        OPERATIONS.add(sendMessage);
+        OPERATIONS.add(createChannel);
     }
 }

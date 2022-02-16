@@ -37,9 +37,9 @@ public class OperationCreateChannel implements IOperation{
             Category category = guild.getCategoryById((String) objects[2]);
             if (category != null) {
                 if (type.equals("text")) {
-                    guild.createTextChannel((String) objects[3],category).queue();
+                    guild.createTextChannel((String) objects[3],category).queue(REFRESH_CONSUMER);
                 } else if (type.equals("voice")) {
-                    guild.createVoiceChannel((String) objects[3],category).queue();
+                    guild.createVoiceChannel((String) objects[3],category).queue(REFRESH_CONSUMER);
                 } else {
                     throw new InvalidOperationException("Channel type is not valid!");
                 }

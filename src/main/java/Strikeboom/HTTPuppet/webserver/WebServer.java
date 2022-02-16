@@ -1,10 +1,10 @@
 package Strikeboom.HTTPuppet.webserver;
 
-import Strikeboom.HTTPuppet.webserver.json.IJSON;
-import Strikeboom.HTTPuppet.webserver.json.JSONFiles;
 import Strikeboom.HTTPuppet.operations.IOperation;
 import Strikeboom.HTTPuppet.operations.InvalidOperationException;
 import Strikeboom.HTTPuppet.operations.Operations;
+import Strikeboom.HTTPuppet.webserver.json.IJSON;
+import Strikeboom.HTTPuppet.webserver.json.JSONFiles;
 import com.sun.net.httpserver.HttpServer;
 import org.json.JSONObject;
 

@@ -1,6 +1,16 @@
 package Strikeboom.HTTPuppet.operations;
 
+import java.util.function.Consumer;
+
 public interface IOperation {
+    /**
+     * This is used for methods that should make new data to call inside the queue() function
+     */
+    Consumer<? super Object> REFRESH_CONSUMER = o -> {
+        try {
+            Operations.refresh.handleOperation(null);
+        } catch (InvalidOperationException ignored) {}
+    };
     /**
      * @return Url where iframe is hosted
      */
