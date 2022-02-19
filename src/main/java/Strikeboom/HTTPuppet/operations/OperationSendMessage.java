@@ -28,7 +28,7 @@ public class OperationSendMessage implements IOperation{
     public void handleOperation(Object[] objects) throws InvalidOperationException {
         for (int i = 0;i<objects.length;i++) {
             if (!(objects[i] instanceof String)) {
-                throw new InvalidOperationException("Parameter " + i + " is not a string!");
+                throw new InvalidOperationException("Parameter " + i + " is not a string!",this);
             }
         }
         Guild guild = HTTPuppet.jda.getGuildById((String) objects[0]);
@@ -37,10 +37,10 @@ public class OperationSendMessage implements IOperation{
             if (channel != null) {
                 channel.sendMessage((String) objects[2]).queue();
             } else {
-                throw new InvalidOperationException("Channel ID is not valid!");
+                throw new InvalidOperationException("Channel ID is not valid!",this);
             }
         } else {
-            throw new InvalidOperationException("Guild ID is not valid!");
+            throw new InvalidOperationException("Guild ID is not valid!",this);
         }
     }
 

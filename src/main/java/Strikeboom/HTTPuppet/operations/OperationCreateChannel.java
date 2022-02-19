@@ -28,7 +28,7 @@ public class OperationCreateChannel implements IOperation{
     public void handleOperation(Object[] objects) throws InvalidOperationException {
         for (int i = 0;i<objects.length;i++) {
             if (!(objects[i] instanceof String)) {
-                throw new InvalidOperationException("Parameter " + i + " is not a string!");
+                throw new InvalidOperationException("Parameter " + i + " is not a string!",this);
             }
         }
         Guild guild = HTTPuppet.jda.getGuildById((String) objects[0]);
@@ -41,13 +41,13 @@ public class OperationCreateChannel implements IOperation{
                 } else if (type.equals("voice")) {
                     guild.createVoiceChannel((String) objects[3],category).queue(REFRESH_CONSUMER);
                 } else {
-                    throw new InvalidOperationException("Channel type is not valid!");
+                    throw new InvalidOperationException("Channel type is not valid!",this);
                 }
             } else {
-                throw new InvalidOperationException("Category ID is not valid!");
+                throw new InvalidOperationException("Category ID is not valid!",this);
             }
         } else {
-            throw new InvalidOperationException("Guild ID is not valid!");
+            throw new InvalidOperationException("Guild ID is not valid!",this);
         }
     }
 

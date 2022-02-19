@@ -1,5 +1,7 @@
 package Strikeboom.HTTPuppet;
 
+import Strikeboom.HTTPuppet.logger.Logger;
+import Strikeboom.HTTPuppet.logger.TextColors;
 import Strikeboom.HTTPuppet.operations.Operations;
 import Strikeboom.HTTPuppet.webserver.WebServer;
 import Strikeboom.HTTPuppet.webserver.json.JSONFiles;
@@ -42,6 +44,7 @@ public class HTTPuppet {
                     .enableIntents(GatewayIntent.GUILD_MEMBERS) // use this to get all the members
                     .build();
             jda.awaitReady();
+            Logger.getInstance().log(TextColors.CYAN,"Bot Started");
 
             Operations.init();
 
@@ -54,6 +57,7 @@ public class HTTPuppet {
             server.hostHomepage();
             server.hostOperationHandler();
             server.start();
+            Logger.getInstance().log(TextColors.CYAN,"Web Server Started");
         } catch (LoginException | IOException | InterruptedException e) {
             e.printStackTrace();
         }

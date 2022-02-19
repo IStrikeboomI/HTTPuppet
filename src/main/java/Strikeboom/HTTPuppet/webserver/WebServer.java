@@ -1,5 +1,6 @@
 package Strikeboom.HTTPuppet.webserver;
 
+import Strikeboom.HTTPuppet.logger.Logger;
 import Strikeboom.HTTPuppet.operations.IOperation;
 import Strikeboom.HTTPuppet.operations.InvalidOperationException;
 import Strikeboom.HTTPuppet.operations.Operations;
@@ -147,7 +148,7 @@ public class WebServer {
                 try {
                     exchange.sendResponseHeaders(404,0);
                     exchange.close();
-                    throw new InvalidOperationException("Operation has no operation or parameters");
+                    throw new InvalidOperationException("Operation has no operation or parameters",null);
                 } catch (InvalidOperationException e) {
                     e.printStackTrace();
                 }
@@ -157,6 +158,7 @@ public class WebServer {
                 if (iOperation.getUrl().equals(operation)) {
                     try {
                         iOperation.handleOperation(object.getJSONArray("parameters").toList().toArray());
+                        Logger.getInstance().log(new String[]{exchange.getRemoteAddress().getAddress().toString().substring(1),"INFO"},"Operation \"" + iOperation.getName() + "\" sent with parameters:" + object.getJSONArray("parameters").toString());
                     } catch (InvalidOperationException e) {
                         exchange.sendResponseHeaders(404,0);
                         exchange.close();

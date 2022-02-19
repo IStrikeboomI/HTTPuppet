@@ -1,6 +1,15 @@
 package Strikeboom.HTTPuppet.operations;
 
+import Strikeboom.HTTPuppet.logger.Logger;
+import Strikeboom.HTTPuppet.logger.TextColors;
+
 public class InvalidOperationException extends Exception{
-    public InvalidOperationException() {super("Invalid parameters");}
-    public InvalidOperationException(String str) {super(str);}
+    public InvalidOperationException(String str,IOperation operation) {
+        super(str);
+        String name = "";
+        if (operation != null) {
+            name = operation.getName();
+        }
+        Logger.getInstance().log(TextColors.RED,new String[]{name},str);
+    }
 }
