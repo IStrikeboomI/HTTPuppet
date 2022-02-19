@@ -2,7 +2,7 @@ package Strikeboom.HTTPuppet;
 
 import Strikeboom.HTTPuppet.logger.Logger;
 import Strikeboom.HTTPuppet.logger.TextColors;
-import Strikeboom.HTTPuppet.operations.Operations;
+import Strikeboom.HTTPuppet.operation.Operations;
 import Strikeboom.HTTPuppet.webserver.WebServer;
 import Strikeboom.HTTPuppet.webserver.json.JSONFiles;
 import net.dv8tion.jda.api.JDA;

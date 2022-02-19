@@ -1,13 +1,15 @@
-package Strikeboom.HTTPuppet.operations;
+package Strikeboom.HTTPuppet.operation.operations;
 
 import Strikeboom.HTTPuppet.HTTPuppet;
+import Strikeboom.HTTPuppet.operation.IOperation;
+import Strikeboom.HTTPuppet.operation.InvalidOperationException;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 /**
     The operation for sending a message to a channel
  */
-public class OperationSendMessage implements IOperation{
+public class OperationSendMessage implements IOperation {
     @Override
     public String getUrl() {
         return "/sendmessage.html";

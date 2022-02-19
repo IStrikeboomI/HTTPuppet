@@ -1,7 +1,7 @@
 package Strikeboom.HTTPuppet.webserver.json;
 
-import Strikeboom.HTTPuppet.operations.IOperation;
-import Strikeboom.HTTPuppet.operations.Operations;
+import Strikeboom.HTTPuppet.operation.IOperation;
+import Strikeboom.HTTPuppet.operation.Operations;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

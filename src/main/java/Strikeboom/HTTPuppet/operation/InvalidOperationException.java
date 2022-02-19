@@ -1,4 +1,4 @@
-package Strikeboom.HTTPuppet.operations;
+package Strikeboom.HTTPuppet.operation;
 
 import Strikeboom.HTTPuppet.logger.Logger;
 import Strikeboom.HTTPuppet.logger.TextColors;

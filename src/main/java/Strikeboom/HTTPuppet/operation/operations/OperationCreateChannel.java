@@ -1,13 +1,15 @@
-package Strikeboom.HTTPuppet.operations;
+package Strikeboom.HTTPuppet.operation.operations;
 
 import Strikeboom.HTTPuppet.HTTPuppet;
+import Strikeboom.HTTPuppet.operation.IOperation;
+import Strikeboom.HTTPuppet.operation.InvalidOperationException;
 import net.dv8tion.jda.api.entities.Category;
 import net.dv8tion.jda.api.entities.Guild;
 
 /**
  * The Operation For Creating a channel
  */
-public class OperationCreateChannel implements IOperation{
+public class OperationCreateChannel implements IOperation {
     @Override
     public String getUrl() {
         return "/createchannel.html";

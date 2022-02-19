@@ -1,4 +1,8 @@
-package Strikeboom.HTTPuppet.operations;
+package Strikeboom.HTTPuppet.operation;
+
+import Strikeboom.HTTPuppet.operation.operations.OperationCreateChannel;
+import Strikeboom.HTTPuppet.operation.operations.OperationRefresh;
+import Strikeboom.HTTPuppet.operation.operations.OperationSendMessage;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package Strikeboom.HTTPuppet.operations;
+package Strikeboom.HTTPuppet.operation;
 
 import java.util.function.Consumer;
 

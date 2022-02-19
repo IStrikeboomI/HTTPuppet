@@ -1,8 +1,9 @@
-package Strikeboom.HTTPuppet.operations;
+package Strikeboom.HTTPuppet.operation.operations;
 
+import Strikeboom.HTTPuppet.operation.IOperation;
 import Strikeboom.HTTPuppet.webserver.json.JSONFiles;
 
-public class OperationRefresh implements IOperation{
+public class OperationRefresh implements IOperation {
     @Override
     public String getUrl() {
         return "/refresh.html";
