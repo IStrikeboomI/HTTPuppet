@@ -22,15 +22,14 @@ public class OperationRemoveChannel implements IOperation {
 
     /**
      *
-     * @param objects first should be guild id
-     *                second should be channel id
-     * @throws InvalidOperationException when one of the parameters are not strings or valid
+     *
+     * @param strings@throws InvalidOperationException when one of the parameters are not strings or valid
      */
     @Override
-    public void handleOperation(Object[] objects) throws InvalidOperationException {
-        Guild guild = HTTPuppet.jda.getGuildById((String) objects[0]);
+    public void handleOperation(String[] strings) throws InvalidOperationException {
+        Guild guild = HTTPuppet.jda.getGuildById(strings[0]);
         if (guild != null) {
-            GuildChannel channel = guild.getGuildChannelById((String) objects[1]);
+            GuildChannel channel = guild.getGuildChannelById(strings[1]);
             if (channel != null) {
                 channel.delete().queue();
             } else {

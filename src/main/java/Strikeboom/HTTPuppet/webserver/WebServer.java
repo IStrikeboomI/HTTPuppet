@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Collectors;
 
 public class WebServer {
     private final HttpServer server;
@@ -157,7 +158,7 @@ public class WebServer {
             for (IOperation iOperation : Operations.OPERATIONS) {
                 if (iOperation.getUrl().equals(operation)) {
                     try {
-                        iOperation.handleOperation(object.getJSONArray("parameters").toList().toArray());
+                        iOperation.handleOperation(object.getJSONArray("parameters").toList().stream().map(Object::toString).toArray(String[]::new));
                         Logger.getInstance().log(new String[]{exchange.getRemoteAddress().getAddress().toString().substring(1),"INFO"},"Operation \"" + iOperation.getName() + "\" sent with parameters:" + object.getJSONArray("parameters").toString());
                     } catch (InvalidOperationException e) {
                         exchange.sendResponseHeaders(404,0);

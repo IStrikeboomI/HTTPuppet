@@ -23,10 +23,10 @@ public interface IOperation {
 
     /**
      *
-     * @param objects this should depend on the specific operation
-     * @throws InvalidOperationException when parameters are wrong
+     *
+     * @param strings@throws InvalidOperationException when parameters are wrong
      */
-    void handleOperation(Object[] objects) throws InvalidOperationException;
+    void handleOperation(String[] strings) throws InvalidOperationException;
 
     /**
      * @return File location of operation iframe website

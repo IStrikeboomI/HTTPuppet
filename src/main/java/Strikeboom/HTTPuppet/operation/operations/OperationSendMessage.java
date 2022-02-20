@@ -21,23 +21,16 @@ public class OperationSendMessage implements IOperation {
     }
 
     /**
-     * @param objects first object should be the guild id in a String
-     *                second object should be the channel id in a String
-     *                third object should be the string content to be sent
-     * @throws InvalidOperationException when one of the parameters are not strings or valid
+     *
+     * @param strings@throws InvalidOperationException when one of the parameters are not strings or valid
      */
     @Override
-    public void handleOperation(Object[] objects) throws InvalidOperationException {
-        for (int i = 0;i<objects.length;i++) {
-            if (!(objects[i] instanceof String)) {
-                throw new InvalidOperationException("Parameter " + i + " is not a string!",this);
-            }
-        }
-        Guild guild = HTTPuppet.jda.getGuildById((String) objects[0]);
+    public void handleOperation(String[] strings) throws InvalidOperationException {
+        Guild guild = HTTPuppet.jda.getGuildById(strings[0]);
         if (guild != null) {
-            TextChannel channel = guild.getTextChannelById((String) objects[1]);
+            TextChannel channel = guild.getTextChannelById(strings[1]);
             if (channel != null) {
-                channel.sendMessage((String) objects[2]).queue();
+                channel.sendMessage(strings[2]).queue();
             } else {
                 throw new InvalidOperationException("Channel ID is not valid!",this);
             }

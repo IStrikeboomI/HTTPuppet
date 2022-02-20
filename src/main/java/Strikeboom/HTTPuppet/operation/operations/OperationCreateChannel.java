@@ -20,28 +20,20 @@ public class OperationCreateChannel implements IOperation {
         return "Create Channel";
     }
     /**
-     * @param objects first object should be the guild id,
-     *                second object should be the type of channel (text or voice chanel),
-     *                third object should be the channel category,
-     *                fourth object should be the channel name,
-     * @throws InvalidOperationException when one of the parameters are not strings or valid
+     *
+     * @param strings@throws InvalidOperationException when one of the parameters are not strings or valid
      */
     @Override
-    public void handleOperation(Object[] objects) throws InvalidOperationException {
-        for (int i = 0;i<objects.length;i++) {
-            if (!(objects[i] instanceof String)) {
-                throw new InvalidOperationException("Parameter " + i + " is not a string!",this);
-            }
-        }
-        Guild guild = HTTPuppet.jda.getGuildById((String) objects[0]);
+    public void handleOperation(String[] strings) throws InvalidOperationException {
+        Guild guild = HTTPuppet.jda.getGuildById(strings[0]);
         if (guild != null) {
-            String type = (String) objects[1];
-            Category category = guild.getCategoryById((String) objects[2]);
+            String type = strings[1];
+            Category category = guild.getCategoryById(strings[2]);
             if (category != null) {
                 if (type.equals("text")) {
-                    guild.createTextChannel((String) objects[3],category).queue(REFRESH_CONSUMER);
+                    guild.createTextChannel(strings[3],category).queue(REFRESH_CONSUMER);
                 } else if (type.equals("voice")) {
-                    guild.createVoiceChannel((String) objects[3],category).queue(REFRESH_CONSUMER);
+                    guild.createVoiceChannel(strings[3],category).queue(REFRESH_CONSUMER);
                 } else {
                     throw new InvalidOperationException("Channel type is not valid!",this);
                 }

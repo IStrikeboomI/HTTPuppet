@@ -16,10 +16,10 @@ public class OperationRefresh implements IOperation {
 
     /**
      *  All it does is refresh the guild json
-     * @param objects should be nothing, if something is provided it just ignores it
+     * @param strings
      */
     @Override
-    public void handleOperation(Object[] objects) {
+    public void handleOperation(String[] strings) {
         JSONFiles.guildJSON.refresh();
     }
 
