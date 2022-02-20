@@ -1,12 +1,11 @@
 package Strikeboom.HTTPuppet.webserver.json;
 
 import Strikeboom.HTTPuppet.HTTPuppet;
-import net.dv8tion.jda.api.entities.Category;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.Locale;
 
 public class GuildJson implements IJSON {
     private JSONArray array;
@@ -28,7 +27,8 @@ public class GuildJson implements IJSON {
             for (Member member : guild.loadMembers().get()) {
                 JSONObject memberObject = new JSONObject();
                 memberObject.put("id",member.getId());
-                memberObject.put("name",member.getEffectiveName());
+                memberObject.put("server_name",member.getEffectiveName());
+                memberObject.put("real_name",member.getUser().getName());
                 membersArray.put(memberObject);
             }
 
@@ -43,9 +43,10 @@ public class GuildJson implements IJSON {
 
             //iterate over all channels and add to separate channel array
             JSONArray channelArray = new JSONArray();
-            for (TextChannel channel : guild.getTextChannels()) {
+            for (GuildChannel channel : guild.getChannels()) {
                 JSONObject channelObject = new JSONObject();
                 channelObject.put("id", channel.getId());
+                channelObject.put("type", channel.getType().name().toLowerCase(Locale.ROOT));
                 channelObject.put("name", channel.getName());
                 channelArray.put(channelObject);
             }
