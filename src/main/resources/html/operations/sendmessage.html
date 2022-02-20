@@ -27,7 +27,7 @@
                 let channels = document.getElementById("channelList");
                 let channelId = channels.options[channels.selectedIndex].dataset.id;
                 let text = document.getElementById("userText").value;
-                let obj = {"operation":"/sendmessage.html",parameters:[guildId,channelId,text]}
+                let obj = {"operation":window.location.pathname,parameters:[guildId,channelId,text]}
                 let JSONText = JSON.stringify(obj);
 
                 sendOperation(JSONText);

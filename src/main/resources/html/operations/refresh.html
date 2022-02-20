@@ -15,7 +15,7 @@
             var desiredObjects = [];
             var guildId;
             function send() {
-                    let obj = {"operation":"/refresh.html",parameters:[]}
+                    let obj = {"operation":window.location.pathname,parameters:[]}
                     let JSONText = JSON.stringify(obj);
                     sendOperation(JSONText);
 

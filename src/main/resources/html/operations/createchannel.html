@@ -33,7 +33,7 @@
                 let type = document.querySelector('input[name="channelType"]:checked').value;
                 let category = channelCategory.options[channelCategory.selectedIndex].dataset.id;
                 let channelName = document.getElementById("userText").value;
-                let obj = {"operation":"/createchannel.html",parameters:[guildId,type,category,channelName]}
+                let obj = {"operation":window.location.pathname,parameters:[guildId,type,category,channelName]}
 
                 let JSONText = JSON.stringify(obj);
                 sendOperation(JSONText);
