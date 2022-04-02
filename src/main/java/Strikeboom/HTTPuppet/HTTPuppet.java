@@ -50,7 +50,7 @@ public class HTTPuppet {
 
             JSONFiles.init();
 
-            WebServer server = new WebServer(55566);
+            WebServer server = new WebServer(80);
             server.hostJSONS();
             server.hostJS();
             server.hostOperations();
