@@ -44,11 +44,14 @@ public class GuildJson implements IJSON {
             //iterate over all channels and add to separate channel array
             JSONArray channelArray = new JSONArray();
             for (GuildChannel channel : guild.getChannels()) {
-                JSONObject channelObject = new JSONObject();
-                channelObject.put("id", channel.getId());
-                channelObject.put("type", channel.getType().name().toLowerCase(Locale.ROOT));
-                channelObject.put("name", channel.getName());
-                channelArray.put(channelObject);
+                //only voice and text channels
+                if (channel.getType() == ChannelType.TEXT || channel.getType() == ChannelType.VOICE) {
+                    JSONObject channelObject = new JSONObject();
+                    channelObject.put("id", channel.getId());
+                    channelObject.put("type", channel.getType().name().toLowerCase(Locale.ROOT));
+                    channelObject.put("name", channel.getName());
+                    channelArray.put(channelObject);
+                }
             }
             //put the separate arrays in the main array
             object.put("channels",channelArray);
